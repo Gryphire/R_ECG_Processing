@@ -12,19 +12,26 @@
 
 # LOAD PACKAGES
 library("pracma")
+library("svDialogs")
 
-scriptsdir = choose.dir(caption="Please select the folder containing these scripts.")
+scriptsdir = choose.dir(caption="Please select the folder containing these analysis scripts.")
 datadir = choose.dir(caption="Please select the folder containing your data files and to which the HR file will be saved.")
 
 # WHAT ARE THE PPNR BOUNDS FOR THE SCRIPT
-ppfirst = as.numeric(readline("Please enter the lower bound participant number: "))
-pplast = as.numeric(readline("Up until (including) participant numer: "))
+ppfirst <- dlg_input(message = "Please enter the lower bound for the range of participants you want to process:")
+ppfirst = as.numeric(ppfirst$res)
+
+pplast <- dlg_input(message = "Please enter the upper bound (incl.) for the range of participants you want to process:")
+pplast = as.numeric(pplast$res)
+
+#ppfirst = as.numeric(readline("Please enter the lower bound participant number: "))
+#pplast = as.numeric(readline("Up until (including) participant numer: "))
 
 # SAMPLING RATE
 samplingrate = 1000
 
 # INITIALISING THE DATA STRUCTURE THAT WILL HOLD ALL VALUES
-datastruct = matrix(nrow=pplast,ncol=1)
+datastruct = matrix(nrow=as.numeric(pplast),ncol=1)
 
 
 #----RUN THE BASELINE AND MANIPULATION HR CALCULATIONS FOR PPs SPECIFIED----
@@ -140,20 +147,20 @@ for (ppnr in ppfirst:pplast){
     # CALCULATE AVERAGE HEART RATE OVER ALL DATA
     averageHR = mean(HR);
     
-    print(paste0("Average HR for PP ",ppnr," in the ",phasename," phase is: ",averageHR))
+    print(paste0("Average HR for PP ",ppnr," is: ",averageHR))
     
-  }
+    
+    #----GETTING READY TO SAVE DATA----
+    # SET THE WORKING DIRECTORY TO THE FOLDER YOU WANT TO SAVE THE DATA IN
+    setwd(datadir)
+    
+    # MAKE SURE THAT ROWS PERTAINING TO PP WHO DON'T HAVE PHYS DATA ARE SKIPPED
+    if (dataabsent == 1){
+      datastruct[ppnr,1] = 0
+    }else{
+      datastruct[ppnr,1] = averageHR
+    }
   
-  #----GETTING READY TO SAVE DATA----
-
-  # SET THE WORKING DIRECTORY TO THE FOLDER YOU WANT TO SAVE THE DATA IN
-  setwd(datadir)
- 
-  # MAKE SURE THAT ROWS PERTAINING TO PP WHO DON'T HAVE PHYS DATA ARE SKIPPED
-  if (dataabsent == 1){
-    datastruct[ppnr,1] = 0
-  }else{
-    datastruct[ppnr,1] = averageHR
   
 }
 
