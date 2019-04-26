@@ -16,7 +16,7 @@ In order to process your participants' ECG data (in .txt format), simply run phy
 
   
 #### Step 2: 
-You will be asked to define the folder in which you keep your analysis scripts (which are physprocessing_generaluse.R and ecgfilt.R).
+You will be asked to define the folder in which you keep your analysis scripts (which are **physprocessing_generaluse.R** and **ecgfilt.R**).
 
 
 #### Step 3: 
