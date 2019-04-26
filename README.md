@@ -6,13 +6,13 @@ Scripts that can be used in R to process (i.e. filtering and peak-detection) ECG
 ____
 
 #### Preparation: 
-In order to be able to run the physprocessing_generaluse.R script, make sure that the following packages are installed:
+In order to be able to run the **physprocessing_generaluse.R** script, make sure that the following packages are installed:
 - pracma
 - svDialogs
 
   
 #### Step 1: 
-In order to process your participants' ECG data (in .txt format), simply run physprocessing_generaluse.R.
+In order to process your participants' ECG data (in .txt format), simply run **physprocessing_generaluse.R**.
 
   
 #### Step 2: 
