@@ -14,8 +14,15 @@
 library("pracma")
 library("svDialogs")
 
-scriptsdir = choose.dir(caption="Please select the folder containing these analysis scripts.")
-datadir = choose.dir(caption="Please select the folder containing your data files and to which the HR file will be saved.")
+# SELECT THE SCRIPTS AND DATA DIRECTORIES (TWO DIFFERENT APPROACHES TO WORK ON BOTH WIN AND MAC)
+if (.Platform$OS.type == "windows"){
+  scriptsdir = choose.dir(caption="Please select the folder containing these analysis scripts.")
+  datadir = choose.dir(caption="Please select the folder containing your data files and to which the HR file will be saved.")
+}else{
+  # IF YOU ARE NOT RUNNING ON WINDOWS, YOU HAVE TO MANUALLY INPUT YOUR DIRECTORY PATHS IN THIS SCRIPT BELOW
+  scriptsdir = ("/Users/Nasja/Downloads/ECGinR-master")
+  datadir = ("/Users/Nasja/Downloads/ECGinR-master")
+}
 
 # WHAT ARE THE PPNR BOUNDS FOR THE SCRIPT
 ppfirst <- dlg_input(message = "Please enter the lower bound for the range of participants you want to process:")
@@ -23,9 +30,6 @@ ppfirst = as.numeric(ppfirst$res)
 
 pplast <- dlg_input(message = "Please enter the upper bound (incl.) for the range of participants you want to process:")
 pplast = as.numeric(pplast$res)
-
-#ppfirst = as.numeric(readline("Please enter the lower bound participant number: "))
-#pplast = as.numeric(readline("Up until (including) participant numer: "))
 
 # SAMPLING RATE
 samplingrate = 1000
@@ -160,8 +164,6 @@ for (ppnr in ppfirst:pplast){
     }else{
       datastruct[ppnr,1] = averageHR
     }
-  
-  
 }
 
 write.table(x = datastruct,file = "finalphysdata.txt")
