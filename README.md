@@ -1,4 +1,4 @@
-# ECGinR
+# R ECG PROCESSING
 
 Scripts that can be used in R to process (i.e. filtering and peak-detection) ECG data and produce a file with average heart rates. I have tried to explain what exactly is being done in the script (see the comments) as best as I could.
 
